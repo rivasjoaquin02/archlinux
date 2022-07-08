@@ -5,8 +5,9 @@ hwclock --systohc
 sed -i '178s/.//' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
-echo "arch" >> /etc/hostname
+echo "LANG=es_ES.UTF-8" >> /etc/locale.conf
+#echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
+echo "strange-laptop" >> /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 echo "127.0.1.1 arch.localdomain arch" >> /etc/hosts
@@ -20,7 +21,7 @@ pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_suppl
 # pacman -S --noconfirm xf86-video-amdgpu
 # pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB #change the directory to /boot/efi is you mounted the EFI partition at /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB #change the directory to /boot/efi is you mounted the EFI partition at /boot/efi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -30,21 +31,17 @@ systemctl enable cups.service
 systemctl enable sshd
 systemctl enable avahi-daemon
 systemctl enable tlp # You can comment this command out if you didn't install tlp, see above
-systemctl enable reflector.timer
+#systemctl enable reflector.timer
 systemctl enable fstrim.timer
 systemctl enable libvirtd
 systemctl enable firewalld
 systemctl enable acpid
 
-useradd -m ermanno
-echo ermanno:password | chpasswd
-usermod -aG libvirt ermanno
+useradd -m strange
+echo strange:password | chpasswd
+usermod -aG libvirt strange
 
-echo "ermanno ALL=(ALL) ALL" >> /etc/sudoers.d/ermanno
+echo "strange ALL=(ALL) ALL" >> /etc/sudoers.d/strange
 
 
 printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
-
-
-
-
