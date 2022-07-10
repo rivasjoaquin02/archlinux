@@ -28,17 +28,17 @@ mkinitcpio -P
 
 # install packages
 pacman -Syu
-pacman -S grub efibootmgr os-prober networkmanager network-manager-applet ntfs-3g btrfs-progs dialog wpa_supplicant mtools \
-		linux-headers avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils \
-		dnsutils bluez bluez-utils cups hplip alsa-utils \
-		pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh reflector \
-		acpi acpi_call tlp virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 \
-		openbsd-netcat iptables-nft ipset firewalld flatpak sof-firmware nss-mdns acpid  \
-		terminus-font dosfstools
+pacman -S --noconfirm grub grub-btrfs efibootmgr os-prober linux-headers bash-completion \
+	reflector terminus-font networkmanager network-manager-applet ntfs-3g dialog wpa_supplicant \
+	mtools bluez bluez-utils avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils \
+	dnsutils  alsa-utils openssh  acpi acpi_call tlp  edk2-ovmf bridge-utils dnsmasq vde2 \
+	openbsd-netcat ipset flatpak sof-firmware nss-mdns acpid dosfstools \
+	pipewire pipewire-alsa pipewire-pulse pipewire-jack \ 
+	virt-manager qemu qemu-arch-extra cups hplip iptables-nft firewalld
 # pacman -S nvidia nvidia-utils nvidia-settings
 
 # bootloader
-grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB #change the directory to /boot/efi is you mounted the EFI partition at /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # enable services
